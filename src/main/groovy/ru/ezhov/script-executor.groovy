@@ -27,11 +27,13 @@ if (!extraArguments) {
 if (options.s) {
     URI url = new URI(extraArguments[0])
 
-    def listArgsForScript = new ArrayList()
+    String[] listArgsForScript = null
     int size = extraArguments.size()
     if (size > 1){
+        listArgsForScript = new String[size - 1]
+
         for (int i = 1; i < size; i++){
-            listArgsForScript.add(extraArguments[i])
+            listArgsForScript[i - 1] = extraArguments[i]
         }
     }
 
