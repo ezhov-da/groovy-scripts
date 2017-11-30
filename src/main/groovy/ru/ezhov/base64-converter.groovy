@@ -1,10 +1,11 @@
 import sun.misc.BASE64Decoder
 
-def cliBuilder = new CliBuilder(usage: 'Base64Converter.groovy -[hed] [absolute file path source] [absolute file path target]')
+def cliBuilder = new CliBuilder(usage: 'Base64Converter.groovy -[hfd] [absolute file path source] [absolute file path target]')
 
 cliBuilder.with {
     h longOpt: 'help', 'Show usage information'
     e longOpt: 'e64', 'Encode Base64: [absolute file path source]'
+    f longOpt: 'ef64', 'Encode Base64 to file: [absolute file path source] [absolute file path target]'
     d longOpt: 'd64', 'Decode Base64: [absolute file path source] [absolute file path target]'
 }
 
@@ -19,29 +20,57 @@ if (options.h) {
 }
 
 def extraArguments = options.arguments()
-if (options.e) {
-    if (extraArguments) {
-        String absolutePathToFileSource = extraArguments[0]
-        encode(absolutePathToFileSource)
-    } else {
-        println("Set file source...\nExit")
-    }
-} else if (options.d) {
-    if (extraArguments) {
-        String absolutePathToFileSource = extraArguments[0]
-        String absolutePathToFileTarget = extraArguments[1]
-        decode(
-                absolutePathToFileSource,
-                absolutePathToFileTarget
-        )
-    } else {
-        println("Set file source and target...\nExit")
-    }
+if (!extraArguments) {
+    println("Use -h for help.")
+    println("Exit")
 }
 
-void encode(String absolutePathToFileSource) {
+
+
+if (options.e) {
+    encodeE(extraArguments)
+} else if (options.f) {
+    encodeEF(extraArguments)
+} else if (options.d) {
+    decodeD(extraArguments)
+}
+
+void encodeE(List<String> arguments) {
+    String absolutePathToFileSource = arguments[0]
+    print(encode(absolutePathToFileSource))
+}
+
+void encodeEF(List<String> arguments) {
+    String absolutePathToFileSource = arguments[0]
+    String absolutePathToFileTarget = arguments[1]
+
+    println("Encode...")
+    println("""Source: ${absolutePathToFileSource}""")
+    println("""Target: ${absolutePathToFileTarget}""")
+
+    def text = encode(absolutePathToFileSource)
+    saveToFile(text, absolutePathToFileTarget)
+
+    println("~Encoding complete~")
+}
+
+void decodeD(List<String> arguments) {
+    String absolutePathToFileSource = arguments[0]
+    String absolutePathToFileTarget = arguments[1]
+    decode(
+            absolutePathToFileSource,
+            absolutePathToFileTarget
+    )
+}
+
+String encode(String absolutePathToFileSource) {
     def fileSource = new File(absolutePathToFileSource)
-    println(fileSource.getBytes().encodeBase64(true).toString())
+    fileSource.getBytes().encodeBase64(true).toString()
+}
+
+void saveToFile(String text, String absolutePathToFileTarget) {
+    def fileSource = new File(absolutePathToFileTarget)
+    fileSource.write(text)
 }
 
 void decode(String absolutePathToFileBase64Source, String absolutePathToFileTarget) {
