@@ -23,9 +23,8 @@ def extraArguments = options.arguments()
 if (!extraArguments) {
     println("Use -h for help.")
     println("Exit")
+    return
 }
-
-
 
 if (options.e) {
     encodeE(extraArguments)
