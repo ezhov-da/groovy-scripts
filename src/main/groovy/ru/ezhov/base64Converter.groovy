@@ -1,3 +1,4 @@
+
 import sun.misc.BASE64Decoder
 
 def cliBuilder = new CliBuilder(usage: 'Base64Converter.groovy -[hfd] [absolute file path source] [absolute file path target]')
@@ -33,6 +34,7 @@ if (options.e) {
 } else if (options.d) {
     decodeD(extraArguments)
 }
+
 
 void encodeE(List<String> arguments) {
     String absolutePathToFileSource = arguments[0]
