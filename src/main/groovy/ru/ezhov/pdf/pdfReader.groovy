@@ -3,11 +3,12 @@ package ru.ezhov.pdf
 import groovy.xml.MarkupBuilder
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
+
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 PDDocument document =
-        PDDocument.load(new File("E:/programmer/wpc.pdf"))
+        PDDocument.load(new File("wpc.pdf"))
 
 if (!document.isEncrypted()) {
     PDFTextStripper tStripper = new PDFTextStripper()
@@ -22,7 +23,7 @@ if (!document.isEncrypted()) {
     StringBuilder stringBuilder = new StringBuilder()
     def stringSet = getSet()
 
-    def listText = new ArrayList()
+    def listText = new ArrayList<DataObject>()
     def map = new HashMap<String, String>()
 
     for (String line : lines) {
@@ -32,7 +33,7 @@ if (!document.isEncrypted()) {
             if ("" == line) {
                 def text = stringBuilder.toString()
                 if ("" != text) {
-                    objectText = new ObjectText(id: listText.size(), text: text)
+                    objectText = new DataObject(id: listText.size(), text: text)
                     listText.add(objectText)
                     map.put(listText.size(), text)
                 }
@@ -46,19 +47,24 @@ if (!document.isEncrypted()) {
 
 //    println(listText)
 //    println(map)
-    def xmlText = createXml(map)
-    println(xmlText)
+//    def xmlText = createXml(map)
+//    println(xmlText)
 
-    def file = new File("xml.xml")
-    println(file.absolutePath)
-    def fileWriter = new FileWriter(file)
-    fileWriter.write(xmlText.toString())
-    fileWriter.close()
+//    def file = new File("output.xml")
+//    println(file.absolutePath)
+//    file.write(xmlText)
+
+//    def listLittleRows = listText.findAll{it.text.split("\\n").length < 3}
+//    println(listLittleRows)
+
+//    ListDataObject listDataObject = new ListDataObject(dataObjectList: listText)
+//    JAXB.marshal(listDataObject, new File("output.xml"))
 
 }
 
 private String createXml(HashMap<String, String> hashMap) {
-    def mB = new MarkupBuilder()
+    def writer = new StringWriter()
+    def mB = new MarkupBuilder(writer)
 
     // Compose the builder
     def text = mB.collection() {
@@ -71,69 +77,5 @@ private String createXml(HashMap<String, String> hashMap) {
         }
     }
 
-    mB
-}
-
-private Set<String> getSet() {
-    def set = [
-            "basic",
-            "bidi",
-            "currency",
-            "date",
-            "db",
-            "error",
-            "excel",
-            "libxml",
-            "math",
-            "number",
-            "operations",
-            "operations_admin",
-            "operations_assert",
-            "operations_attr_group",
-            "operations_catalog",
-            "operations_category",
-            "operations_col_area",
-            "operations_ctgaccprv",
-            "operations_ctgview",
-            "operations_distribution",
-            "operations_docstore",
-            "operations_entry",
-            "operations_export",
-            "operations_import",
-            "operations_import",
-            "operations_item",
-            "operations_jms",
-            "operations_lkp",
-            "operations_locale",
-            "operations_mq",
-            "operations_mutablespec",
-            "operations_perf",
-            "operations_queuemgr",
-            "operations_report",
-            "operations_scheduler",
-            "operations_search",
-            "operations_soap",
-            "operations_spec",
-            "operations_specmap",
-            "operations_userdefinedlog",
-            "operations_webservices",
-            "operations_wfl",
-            "operations_wflstep",
-            "operations_widget",
-            "operations_worklist",
-            "other",
-            "page_layout",
-            "re",
-            "reader",
-            "reflect",
-            "scripting",
-            "security",
-            "set",
-            "string",
-            "system",
-            "timezone",
-            "writer",
-            "zip",
-            "zip_archive"
-    ]
+    writer.toString()
 }
