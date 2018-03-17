@@ -1,5 +1,3 @@
-package ru.ezhov.groovy
-
 def cliBuilder = new CliBuilder(usage: ' -[s] [resource URI] [args to script]')
 
 cliBuilder.with {
