@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d37c2ced-9b79-4105-a0b0-880e5bf493c2" name="Default" comment="OUT">
+    <list default="true" id="d37c2ced-9b79-4105-a0b0-880e5bf493c2" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
     </list>
     <option name="TRACKING_ENABLED" value="true" />
@@ -609,11 +609,18 @@
       <option name="project" value="LOCAL" />
       <updated>1540411223920</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="OUT">
+      <created>1540411243745</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1540411243745</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="338000" />
+    <option name="totallyTimeSpent" value="351000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="69" y="-9" width="1860" height="1098" extended-state="6" />
