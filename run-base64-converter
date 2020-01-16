@@ -1,0 +1,39 @@
+#!/bin/bash
+
+cat << _EOF_
+What use?
+  0 - decode
+  1 - encode
+or
+  exit
+_EOF_
+
+while true; do
+  read -p "What use: > " -r use
+
+  if [[ "$use" == "0" ]]; then
+      flag=-d
+      break
+  elif [[ "$use" == "1" ]]; then
+      flag=-f
+      break
+  elif [[ "$use" == "exit" ]]; then
+      break
+  else
+      echo Input 1 or 0 or exit ...
+  fi
+done
+
+if [[ "$use" == "exit" ]]; then
+  echo "Selected [exit] ... goodbye :)"
+else
+  echo "Selected flag: $flag"
+
+  read -p "Enter [from] file path > " -r from
+  read -p "Enter [to] file > " -r to
+
+  echo "Start execute"
+
+  groovy src/main/groovy/ru/ezhov/base64Converter.groovy "$flag" "$from" "$to"
+fi
+
