@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat << _EOF_
+cat <<- _EOF_
 What use?
   0 - decode
   1 - encode
